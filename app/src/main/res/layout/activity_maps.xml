@@ -1,0 +1,43 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".MapsActivity"
+    android:background="@drawable/loginbackground"
+    >
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.skycro.myapplication.MapsActivity"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/scanbutton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@drawable/scanIcon"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="400dp" />
+
+    <Button
+        android:id="@+id/recoverbutton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@drawable/recoverIcon"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="400dp"
+        />
+
+</RelativeLayout>
