@@ -3,7 +3,10 @@ package com.example.skycro.myapplication;
 
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -37,6 +40,9 @@ public class scan extends AppCompatActivity implements QRCodeView.Delegate, Easy
     private boolean iflight = false;
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +51,7 @@ public class scan extends AppCompatActivity implements QRCodeView.Delegate, Easy
         mQRCodeView = (ZBarView) findViewById(R.id.zbarview);
         mQRCodeView.setDelegate(this);
         mQRCodeView.startCamera();
+
 
         //for back button
 
@@ -207,4 +214,12 @@ public class scan extends AppCompatActivity implements QRCodeView.Delegate, Easy
             }
         }
     }
+
+
+
+
+
+
+
+
 }
