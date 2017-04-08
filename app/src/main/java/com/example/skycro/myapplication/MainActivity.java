@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
     private EditText mPasswordView;
     private View mProgressView;
     private TextView mResultTextView;
+    private View mLoginFormView;
 
 
     @Override
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
         setContentView(R.layout.activity_main);
         // Set up the login form.
 
+        mLoginFormView = findViewById(R.id.login_form);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.account);
         populateAutoComplete();
         mPasswordView = (EditText) findViewById(R.id.userpassword);
@@ -190,7 +192,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
     private boolean isEmailValid(String email) {
         return email.length() > 0;
     }
-
     private boolean isPasswordValid(String password) {
         return password.length() > 4;
     }
@@ -206,6 +207,14 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
 
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
@@ -219,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 

@@ -16,70 +16,77 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
-    <AutoCompleteTextView
-        android:id="@+id/account"
+    <RelativeLayout
+        android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="120dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:background="@drawable/edittext_login"
-        android:paddingLeft = "20dp"
-        android:hint="请输入用户名"
-        android:singleLine="true"
-        android:textColorHint="#434343"
-        android:fontFamily="helvitica"
-        android:textSize="15dp"
-        android:textColor="#434343" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/userpassword"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="180dp"
-        android:background="@drawable/edittext_login"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:paddingLeft = "20dp"
-        android:hint="请输入密码"
-        android:textSize="15dp"
-        android:singleLine="true"
-        android:textColorHint="#434343"
-        android:textColor="#434343" />
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/checkbox"
-        android:text="记住密码"
-        android:textColor="#FFFFFF"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/userpassword" />
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:background="@drawable/login_button"
-        android:layout_width="140dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="29dp"
-        android:text="登录"
-        android:layout_below="@+id/checkBox"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:id="@+id/result_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="这里是查询结果"
-        android:padding="16dp"
-        android:visibility="invisible"
-        />
+        <TextView
+            android:id="@+id/result_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="这里是查询结果"
+            android:visibility="invisible" />
 
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="140dp"
+            android:layout_height="32dp"
+            android:layout_below="@+id/checkBox"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp"
+            android:background="@drawable/login_button"
+            android:text="登录" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/userpassword"
+            android:layout_centerVertical="true"
+            android:button="@drawable/checkbox"
+            android:text="记住密码"
+            android:textColor="#FFFFFF" />
+
+        <EditText
+            android:id="@+id/userpassword"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="180dp"
+            android:background="@drawable/edittext_login"
+            android:ems="10"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:paddingLeft="20dp"
+            android:singleLine="true"
+            android:textColor="#434343"
+            android:textColorHint="#434343"
+            android:textSize="15dp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/account"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="120dp"
+            android:background="@drawable/edittext_login"
+            android:ems="10"
+            android:fontFamily="helvitica"
+            android:hint="请输入用户名"
+            android:inputType="textPersonName"
+            android:paddingLeft="20dp"
+            android:singleLine="true"
+            android:textColor="#434343"
+            android:textColorHint="#434343"
+            android:textSize="15dp" />
+    </RelativeLayout>
 
 
 </RelativeLayout>
