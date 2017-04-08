@@ -9,6 +9,7 @@
     tools:context=".MapsActivity"
     android:background="@drawable/loginbackground"
     >
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -23,7 +24,7 @@
     <Button
         android:id="@+id/scanbutton"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:background="@drawable/scanIcon"
+        android:background="@drawable/scanicon"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginLeft="300dp"
@@ -32,12 +33,39 @@
     <Button
         android:id="@+id/recoverbutton"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:background="@drawable/recoverIcon"
+        android:background="@drawable/recovericon"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="60dp"
         android:layout_marginTop="400dp"
         />
+    <TextureView
+        android:id="@+id/textureView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorbasic"/>
 
+    <EditText
+        android:id="@+id/account"
+        android:layout_width="320dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="5dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@drawable/edittext_login"
+        android:paddingLeft = "20dp"
+        android:hint=""
+        android:textColorHint="#434343"
+        android:fontFamily="helvitica"
+        android:textSize="15dp"
+        android:textColor="#434343"
+        android:layout_alignBottom="@+id/textureView"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

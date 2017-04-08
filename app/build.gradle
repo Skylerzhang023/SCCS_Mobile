@@ -5,9 +5,20 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.2.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.google.android.gms:play-services-location:10.2.1'
-
+    compile 'cn.bingoogolapple:bga-qrcodecore:1.1.7@aar'
+    compile 'cn.bingoogolapple:bga-zbar:1.1.7@aar'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:recyclerview-v7:25.1.0'
+    compile 'pub.devrel:easypermissions:0.1.7'
+    compile 'cn.bingoogolapple:bga-photopicker:1.2.3@aar'
+    compile 'cn.bingoogolapple:bga-adapter:1.1.8@aar'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'cn.bingoogolapple:bga-qrcodecore:1.1.7@aar'
+    compile 'cn.bingoogolapple:bga-zbar:1.1.7@aar'
+    compile 'de.alpharogroup:design-patterns:4.8.0'
 }
 android {
+
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -18,6 +29,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -30,15 +42,30 @@ android {
         }
     }
 
+
+    dataBinding {
+        enabled = true
+    }
+
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
         androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
             exclude group: 'com.android.support', module: 'support-annotations'
         })
+
         compile 'com.android.support:appcompat-v7:25.3.0'
         compile 'com.android.support.constraint:constraint-layout:1.0.0-beta1'
         testCompile 'junit:junit:4.12'
         compile 'com.google.android.gms:play-services:10.2.1'
         compile 'com.google.android.gms:play-services-maps:10.2.1'
+        compile 'com.android.support:recyclerview-v7:25.1.0'
+        compile 'pub.devrel:easypermissions:0.1.7'
+        compile 'cn.bingoogolapple:bga-photopicker:1.2.3@aar'
+        compile 'cn.bingoogolapple:bga-adapter:1.1.8@aar'
+        compile 'com.github.bumptech.glide:glide:3.7.0'
+        compile 'com.android.support:design:25.3.1'
+
+        testCompile 'junit:junit:4.12'
+
     }
 }

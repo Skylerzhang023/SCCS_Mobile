@@ -1,12 +1,17 @@
 package com.example.skycro.myapplication;
 
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
-import android.location.LocationListener;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
-import 	android.content.Context;
-import  android.location.*;
-import  android.util.*;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,15 +19,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.support.v4.content.ContextCompat;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     int MY_PERMISSIONS_REQUEST_LOCATION;
+    private Button scan;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        scan = (Button) findViewById(R.id.scanbutton);
 
+        scan.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MapsActivity.this, scan.class);
+                startActivity(intent);
+                //如果不关闭当前的会出现好多个页面
+                MapsActivity.this.finish();
+
+            }
+        });
     }
 
 
@@ -88,6 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
     }
+
 
 
 }

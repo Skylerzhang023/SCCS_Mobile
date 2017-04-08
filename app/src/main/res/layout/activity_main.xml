@@ -10,8 +10,15 @@
     android:background="@drawable/loginbackground"
     >
 
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"/>
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/account"
         android:layout_width="match_parent"
         android:layout_height="36dp"
@@ -64,6 +71,14 @@
         android:text="登录"
         android:layout_below="@+id/checkBox"
         android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/result_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这里是查询结果"
+        android:padding="16dp"
+        android:visibility="invisible"
+        />
 
 
 
