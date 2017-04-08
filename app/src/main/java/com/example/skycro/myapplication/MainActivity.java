@@ -26,6 +26,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.skycro.myapplication.utils.Md5Util;
 import com.example.skycro.myapplication.utils.NetWorkUtil;
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 
         getLoaderManager().initLoader(0, null, this);
     }
-
+    //请求权限
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
@@ -128,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
      * Callback received when a permissions request has been completed.
      */
     @Override
+    //请求网络权限
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
@@ -143,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -181,12 +184,15 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
-        } else {
+        }
+        else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
+            //showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute(email, password);
+            //mAuthTask.doInBackground(email,password);
+
         }
     }
     private boolean isEmailValid(String email) {
@@ -290,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
+
     public class UserLoginTask extends AsyncTask<String, Void, String> {
 
         private final String mEmail;
@@ -302,6 +309,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 
         @Override
         protected String doInBackground(String ... params) {
+            Toast toast = null;
             String username = params[0];
             String password = params[1];
             String result = null;
@@ -320,6 +328,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
             }
             // 请求服务器数据
             result = NetWorkUtil.getLoginResult(username, password);
+            if(result == null){
+                result = "ddd";
+            }
+            //result = "ddd";
             return result;
         }
 
@@ -328,21 +340,20 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
             mAuthTask = null;
             showProgress(false);
 
+
             if(result != null && !"".equals(result)){
                 showResutlTextView();
+
                 mResultTextView.setText(result);
             }
 
         }
-
         @Override
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
         }
     }
-
-
 
 
 }

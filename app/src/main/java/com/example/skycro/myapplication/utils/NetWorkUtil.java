@@ -23,6 +23,7 @@ public class NetWorkUtil {
     public static String getLoginResult(String username, String password){
         HttpURLConnection urlConnection = null;
         StringBuilder sb = new StringBuilder();
+
         try {
             URL url = new URL(server);
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -69,7 +70,8 @@ public class NetWorkUtil {
         if (sb != null){
             // 返回结果
             return sb.toString();
-        }else {
+        }
+        else {
             return "请检查登录信息";
         }
     }

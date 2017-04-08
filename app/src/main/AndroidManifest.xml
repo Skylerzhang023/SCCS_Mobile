@@ -5,6 +5,9 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="23" />
+
+    <uses-library android:name="httpclient-4.5.3.jar" />
+
     //for the map API
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
