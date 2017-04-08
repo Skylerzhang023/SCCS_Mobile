@@ -3,11 +3,13 @@ package com.example.skycro.myapplication;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
     private View mProgressView;
     private TextView mResultTextView;
     private View mLoginFormView;
+    private String result,username,password;
 
 
     @Override
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.button || id == EditorInfo.IME_NULL) {
+
                     attemptLogin();
                     return true;
                 }
@@ -88,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
         //mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mResultTextView = (TextView) findViewById(R.id.result_textView);
+        checkNetwork();
+
     }
 
     void showResutlTextView(){
@@ -119,7 +125,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
                             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
                         }
                     });
-        } else {
+        }
+        else {
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
         return false;
@@ -129,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
      * Callback received when a permissions request has been completed.
      */
     @Override
-    //请求网络权限
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
@@ -188,7 +194,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
         else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            //showProgress(true);
+
+            showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute(email, password);
             //mAuthTask.doInBackground(email,password);
@@ -297,6 +304,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
      * the user.
      */
 
+
     public class UserLoginTask extends AsyncTask<String, Void, String> {
 
         private final String mEmail;
@@ -310,9 +318,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
         @Override
         protected String doInBackground(String ... params) {
             Toast toast = null;
-            String username = params[0];
-            String password = params[1];
-            String result = null;
+            username = params[0];
+             password = params[1];
+
+
             // 判断用户名是否为空
             if (username == null || "".equals(username)){
                 result = "用户名为空";
@@ -326,10 +335,12 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
             if (password == null){
                 result = "密码加密失败";
             }
+
             // 请求服务器数据
             result = NetWorkUtil.getLoginResult(username, password);
+
             if(result == null){
-                result = "ddd";
+                result = "请求失败";
             }
             //result = "ddd";
             return result;
@@ -343,7 +354,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
 
             if(result != null && !"".equals(result)){
                 showResutlTextView();
-
                 mResultTextView.setText(result);
             }
 
@@ -355,5 +365,17 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
         }
     }
 
+
+    private void checkNetwork() {
+        ConnectivityManager con=(ConnectivityManager)getSystemService(Activity.CONNECTIVITY_SERVICE);
+        boolean wifi=con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+        boolean internet=con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+        if(wifi|internet){
+            //执行相关操作
+            Toast.makeText(getApplicationContext(),"网络已连接", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getApplicationContext(),"网络未连接", Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

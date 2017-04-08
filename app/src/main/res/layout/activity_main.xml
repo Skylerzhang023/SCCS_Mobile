@@ -10,14 +10,6 @@
     android:background="@drawable/loginbackground"
     >
 
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
     <RelativeLayout
         android:id="@+id/login_form"
         android:layout_width="match_parent"
@@ -92,6 +84,19 @@
             android:textColor="#ffffff"
             android:visibility="visible" />
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="160dp"
+        android:visibility="gone"
+        android:background="@drawable/progress"/>
 
 
 </RelativeLayout>

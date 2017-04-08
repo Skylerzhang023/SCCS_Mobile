@@ -1,5 +1,7 @@
 package com.example.skycro.myapplication.utils;
 
+import android.support.v7.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,13 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by liubei on 2017/4/7.
- */
+public class NetWorkUtil extends AppCompatActivity {
 
-public class NetWorkUtil {
-
-    final static String server = "http://192.168.1.67/api/json?cmd=login&ctrl=user&version=1&lang=zh_CN";
+    final static String server = "http://183.129.241.36:5536/api/json?cmd=login&ctrl=user&version=1&lang=zh_CN";
 
     public static String getLoginResult(String username, String password){
         HttpURLConnection urlConnection = null;
@@ -50,7 +48,8 @@ public class NetWorkUtil {
                     sb.append(line + "\n");
                 }
                 br.close();
-            }else{
+            }
+            else{
                 // 返回响应信息
                 return urlConnection.getResponseMessage();
             }
@@ -59,9 +58,11 @@ public class NetWorkUtil {
         }
         catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
             e.printStackTrace();
-        }finally{
+        }
+        finally{
             if(urlConnection!=null)
                 // 断开连接
                 urlConnection.disconnect();
@@ -75,4 +76,5 @@ public class NetWorkUtil {
             return "请检查登录信息";
         }
     }
+
 }
