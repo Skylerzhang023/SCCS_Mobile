@@ -36,8 +36,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        scan = (Button) findViewById(R.id.scanbutton);
 
+        scan = (Button) findViewById(R.id.scanbutton);
         scan.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        mMap = googleMap;
+        //mMap = googleMap;
 
 
         if (ContextCompat.checkSelfPermission(this,

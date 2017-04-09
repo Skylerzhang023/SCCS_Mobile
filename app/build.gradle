@@ -63,6 +63,14 @@ android {
         compile 'cn.bingoogolapple:bga-zbar:1.1.7@aar'
         compile 'de.alpharogroup:design-patterns:4.8.0'
 
+        compile 'com.jakewharton:butterknife:8.5.1'
+        compile 'com.squareup.retrofit2:retrofit:2.2.0'
+        compile 'com.squareup.retrofit2:converter-moshi:2.2.0'
+        compile 'com.squareup.retrofit2:converter-scalars:2.2.0'
+        compile 'cn.yipianfengye.android:zxing-library:2.1'
+        compile 'com.yayandroid:LocationManager:2.0.1'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
     }
 }
 dependencies {
