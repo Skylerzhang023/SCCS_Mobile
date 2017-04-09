@@ -12,9 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.skycro.myapplication.service.ApiService;
+import com.example.skycro.myapplication.uitl.ServiceUtil;
 import com.example.skycro.myapplication.uitl.ToastUtil;
 import com.google.android.gms.maps.GoogleMap;
 import com.yayandroid.locationmanager.LocationManager;
@@ -22,10 +22,14 @@ import com.yayandroid.locationmanager.base.LocationBaseActivity;
 import com.yayandroid.locationmanager.configuration.DefaultProviderConfiguration;
 import com.yayandroid.locationmanager.configuration.LocationConfiguration;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Terminal extends AppCompatActivity {
 
      ProgressBar progressView;
-     TextView textViewConcentratorName;
+     EditText textViewConcentratorName;
      EditText inputName;
      EditText inputUID;
      EditText inputLong;
@@ -53,7 +57,7 @@ public class Terminal extends AppCompatActivity {
 
         //find the components
         progressView = (ProgressBar) findViewById(R.id.edit_progress);
-        textViewConcentratorName = (TextView) findViewById(R.id.text_concentrator_name);
+        textViewConcentratorName = (EditText) findViewById(R.id.text_concentrator_name);
         inputName = (EditText) findViewById(R.id.input_name);
         inputUID = (EditText) findViewById(R.id.input_uid);
         inputLong = (EditText) findViewById(R.id.input_long);
@@ -149,7 +153,7 @@ public class Terminal extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // push();
+               push();
             }
         });
     }
@@ -211,6 +215,55 @@ public class Terminal extends AppCompatActivity {
         //mMap.addMarker(new MarkerOptions().position(sydney).title("I'm HERE!"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
+    }
+
+    public void push(){
+        progressView.setVisibility(View.VISIBLE);
+        String name = inputName.getText().toString();
+        String luid = inputUID.getText().toString();
+        String cuid = textViewConcentratorName.getText().toString();
+
+        if (name.isEmpty() || cuid.isEmpty() || lat == 0 || lon == 0) {
+            progressView.setVisibility(View.GONE);
+            ToastUtil.toast(Terminal.this, "表单信息不完整");
+            ToastUtil.toast(Terminal.this, Double.toString(lat));
+            ToastUtil.toast(Terminal.this, pid);
+            ToastUtil.toast(Terminal.this, Double.toString(lon));
+            ToastUtil.toast(Terminal.this, Double.toString(lat));
+            return;
+        }
+
+        apiService.addTerminal(pid, cuid, name, luid, lat, lon, new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                progressView.setVisibility(View.GONE);
+                String res = response.body();
+                //ToastUtil.toast(Terminal.this,"alala");
+                int code = ServiceUtil.parseResponseForCode(res);
+
+                if (code == 5) {
+                    ToastUtil.toast(Terminal.this, "请先登录");
+                    Intent intent = new Intent(Terminal.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+
+                if (code != 1) {
+                    String message = ServiceUtil.parseResponseForResult(res, String.class);
+                    ToastUtil.toast(Terminal.this, message);
+                    return;
+                }
+
+                ToastUtil.toast(Terminal.this, "添加成功！");
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                progressView.setVisibility(View.GONE);
+                ToastUtil.showOperationError(Terminal.this, TAG, t);
+            }
+        });
     }
 
 }

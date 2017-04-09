@@ -13,7 +13,10 @@
     <RelativeLayout
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="138dp"
+        android:layout_below="@+id/login_progress"
+        android:layout_alignParentStart="true">
 
         <Button
             android:id="@+id/button"
@@ -97,6 +100,15 @@
         android:layout_marginLeft="160dp"
         android:visibility="gone"
         android:background="@drawable/progress"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/logo"
+        android:layout_marginTop="99dp"
+        android:layout_below="@+id/login_progress"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

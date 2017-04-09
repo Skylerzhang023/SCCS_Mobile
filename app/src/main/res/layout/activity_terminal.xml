@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:text="集中器" />
 
-                <TextView
+                <EditText
                     android:id="@+id/text_concentrator_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

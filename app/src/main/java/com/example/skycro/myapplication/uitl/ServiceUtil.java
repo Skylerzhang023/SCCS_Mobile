@@ -2,6 +2,8 @@ package com.example.skycro.myapplication.uitl;
 
 import android.content.Context;
 
+import com.example.skycro.myapplication.common.JavaNetCookieJar;
+import com.example.skycro.myapplication.common.PersistentCookieStore;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
@@ -11,8 +13,6 @@ import java.net.CookiePolicy;
 import java.net.CookieStore;
 import java.util.concurrent.TimeUnit;
 
-import com.example.skycro.myapplication.common.JavaNetCookieJar;
-import com.example.skycro.myapplication.common.PersistentCookieStore;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -26,7 +26,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class ServiceUtil {
 
     private static final String API_BASE_PATH = "http://183.129.241.36:5536";
-
 
     private static CookieStore cookieStore;
     private static CookieManager cookieManager;

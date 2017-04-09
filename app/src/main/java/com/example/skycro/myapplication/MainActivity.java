@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.skycro.myapplication.uitl.ToastUtil;
 import com.example.skycro.myapplication.utils.Md5Util;
 import com.example.skycro.myapplication.utils.NetWorkUtil;
 
@@ -356,11 +357,16 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
             if(result != null && !"".equals(result)){
                 showResutlTextView();
                 mResultTextView.setText(result);
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, scan.class);
-                startActivity(intent);
-                //如果不关闭当前的会出现好多个页面
-                MainActivity.this.finish();
+                if(result.substring(0,1).equals("1")) {
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, scan.class);
+                    startActivity(intent);
+                    //如果不关闭当前的会出现好多个页面
+                    MainActivity.this.finish();
+                }
+                else{
+                    ToastUtil.toast(MainActivity.this, "账号或密码错误");
+                }
             }
 
         }
