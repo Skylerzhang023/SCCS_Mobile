@@ -303,6 +303,7 @@ public class Terminal extends AppCompatActivity {
         String pid = "aaaa";
         double lat = 2.111;
         double lon = 2.111;
+        checkNetwork();
         if(!isInternet){
             values1.put("pid",pid);
             values1.put("cuid",cuid);
