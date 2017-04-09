@@ -62,6 +62,11 @@ public class Terminal extends AppCompatActivity {
         Button btnStartScan = (Button) findViewById(R.id.btn_start_scan);
         Button btnNext = (Button) findViewById(R.id.btn_next);
 
+        //接收二维码
+        Bundle bundle = this.getIntent().getExtras();
+        pid = bundle.getString("pid");
+        inputUID.setText(pid);
+
         //请求服务
 
         if (ContextCompat.checkSelfPermission(this,

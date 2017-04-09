@@ -73,7 +73,21 @@ public class scan extends AppCompatActivity implements QRCodeView.Delegate, Easy
         Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
         vibrate();
         mQRCodeView.startSpot();
+        Intent i = new Intent(scan.this, Terminal.class);
+        Bundle bundle=new Bundle();
+        //传递name参数为tinyphp
+          bundle.putString("pid", result);
+        i.putExtras(bundle);
+        startActivity(i);
+
+        //Intent intent = new Intent();
+        //intent.setClass(scan.this, Terminal.class);
+        //startActivity(intent);
+        //如果不关闭当前的会出现好多个页面
+        scan.this.finish();
+        //Toast.makeText(scan.this, "日", Toast.LENGTH_SHORT).show();
     }
+    //////////////
 
     @Override
     public void onScanQRCodeOpenCameraError() {
@@ -146,6 +160,9 @@ public class scan extends AppCompatActivity implements QRCodeView.Delegate, Easy
                         Toast.makeText(scan.this, "未发现二维码", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(scan.this, result, Toast.LENGTH_SHORT).show();
+
+
+
                     }
                 }
             }.execute();

@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -355,6 +356,11 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<C
             if(result != null && !"".equals(result)){
                 showResutlTextView();
                 mResultTextView.setText(result);
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, scan.class);
+                startActivity(intent);
+                //如果不关闭当前的会出现好多个页面
+                MainActivity.this.finish();
             }
 
         }
