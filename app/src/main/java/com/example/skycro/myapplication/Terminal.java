@@ -304,6 +304,7 @@ public class Terminal extends AppCompatActivity {
         double lat = 2.111;
         double lon = 2.111;
         checkNetwork();
+
         if(!isInternet){
             values1.put("pid",pid);
             values1.put("cuid",cuid);
@@ -316,6 +317,7 @@ public class Terminal extends AppCompatActivity {
             }
             else
                 Toast.makeText(mContext,"插入失败啦",Toast.LENGTH_SHORT).show();
+            return;
         }
 
 
