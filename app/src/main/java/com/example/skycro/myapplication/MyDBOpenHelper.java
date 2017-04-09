@@ -18,10 +18,7 @@ class MyDBOpenHelper extends SQLiteOpenHelper {
                 "name VARCHAR(6)," +
                 "luid VARCHAR(4), " +
                 "lat DOUBLE," +
-                "lng DOUBLE ," +
-                "ctype INTEGER, "+
-                "ltype INTEGER," +
-                "ctime LONG)";
+                "lon DOUBLE";
 
         db.execSQL(sqlstr);
         Log.i("SQLite",sqlstr);

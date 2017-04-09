@@ -1,9 +1,10 @@
 package com.example.skycro.myapplication;
 
 
-
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -27,7 +28,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 
 
-public class scan extends AppCompatActivity implements QRCodeView.Delegate, EasyPermissions.PermissionCallbacks{
+public class scan_cuid extends AppCompatActivity implements QRCodeView.Delegate, EasyPermissions.PermissionCallbacks{
 
     private static final String TAG = scan.class.getSimpleName();
     private static final int REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY = 666;
@@ -35,6 +36,10 @@ public class scan extends AppCompatActivity implements QRCodeView.Delegate, Easy
     private QRCodeView mQRCodeView;
     private Button back,light;
     private boolean iflight = false;
+    //存数据库
+    private SQLiteDatabase db;
+    private MyDBOpenHelper dbhelper;
+    private Context mContext;
 
 
     @Override
@@ -45,6 +50,7 @@ public class scan extends AppCompatActivity implements QRCodeView.Delegate, Easy
         mQRCodeView = (ZBarView) findViewById(R.id.zbarview);
         mQRCodeView.setDelegate(this);
         mQRCodeView.startCamera();
+
 
         //for back button
 
@@ -74,19 +80,21 @@ public class scan extends AppCompatActivity implements QRCodeView.Delegate, Easy
         vibrate();
         mQRCodeView.startSpot();
 
-        Intent i = new Intent(scan.this, Terminal.class);
+
+        Intent i = new Intent(scan_cuid.this, Terminal.class);
         Bundle bundle=new Bundle();
         //传递name参数为tinyphp
 
-          bundle.putString("luid", result);
+        bundle.putString("cuid", result);
         i.putExtras(bundle);
         startActivity(i);
+
 
         //Intent intent = new Intent();
         //intent.setClass(scan.this, Terminal.class);
         //startActivity(intent);
         //如果不关闭当前的会出现好多个页面
-        scan.this.finish();
+        scan_cuid.this.finish();
         //Toast.makeText(scan.this, "日", Toast.LENGTH_SHORT).show();
     }
     //////////////
@@ -159,9 +167,9 @@ public class scan extends AppCompatActivity implements QRCodeView.Delegate, Easy
                 @Override
                 protected void onPostExecute(String result) {
                     if (TextUtils.isEmpty(result)) {
-                        Toast.makeText(scan.this, "未发现二维码", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(scan_cuid.this, "未发现二维码", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(scan.this, result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(scan_cuid.this, result, Toast.LENGTH_SHORT).show();
 
 
 

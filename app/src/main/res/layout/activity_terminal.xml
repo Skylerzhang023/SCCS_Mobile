@@ -189,10 +189,15 @@
                     android:text="定位" />
 
                 <Button
-                    android:id="@+id/btn_start_scan"
+                    android:id="@+id/btn_start_scan_con"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="扫码" />
+                    android:text="扫集中器码" />
+                <Button
+                    android:id="@+id/btn_start_scan_ter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="扫终端码" />
 
                 <Button
                     android:id="@+id/btn_next"

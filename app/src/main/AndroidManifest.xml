@@ -54,9 +54,8 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".scan" />
-        <activity android:name=".Terminal">
-
-        </activity>
+        <activity android:name=".Terminal"></activity>
+        <activity android:name=".scan_cuid"></activity>
     </application>
 
 </manifest>

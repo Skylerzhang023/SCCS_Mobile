@@ -1,9 +1,13 @@
 package com.example.skycro.myapplication;
 
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.skycro.myapplication.service.ApiService;
 import com.example.skycro.myapplication.uitl.ServiceUtil;
@@ -28,12 +33,21 @@ import retrofit2.Response;
 
 public class Terminal extends AppCompatActivity {
 
+     private SQLiteDatabase db;
+     private MyDBOpenHelper dbhelper;
+     private Context mContext;
      ProgressBar progressView;
      EditText textViewConcentratorName;
      EditText inputName;
      EditText inputUID;
      EditText inputLong;
      EditText inputLat;
+     public boolean isInternet;
+    ContentValues values1;
+
+
+
+
 
     private GoogleMap mMap;
     int MY_PERMISSIONS_REQUEST_LOCATION;
@@ -45,7 +59,7 @@ public class Terminal extends AppCompatActivity {
 
     private String pid;
     private String cname;
-    private String cuid;
+    private String cuid,luid;
     private double lat,lon;
     Location location;
     // lat 纬度 lon 精度
@@ -63,13 +77,35 @@ public class Terminal extends AppCompatActivity {
         inputLong = (EditText) findViewById(R.id.input_long);
         inputLat = (EditText) findViewById(R.id.input_lat);
         Button btnGetLocation = (Button) findViewById(R.id.btn_get_location);
-        Button btnStartScan = (Button) findViewById(R.id.btn_start_scan);
+        Button btnStartScanter = (Button) findViewById(R.id.btn_start_scan_ter);
+        Button btnStartScancon = (Button) findViewById(R.id.btn_start_scan_con);
         Button btnNext = (Button) findViewById(R.id.btn_next);
 
-        //接收二维码
-        Bundle bundle = this.getIntent().getExtras();
-        pid = bundle.getString("pid");
-        inputUID.setText(pid);
+
+        //接收终端luid
+        luid =getIntent().getStringExtra("luid");
+        //luid = bundle.getString("luid");
+        inputUID.setText(luid);
+
+        //接受集中器cuid
+        cuid =getIntent().getStringExtra("cuid");
+        //Bundle bundle1 = this.getIntent().getExtras();
+        //cuid = bundle1.getString("cuid");
+        textViewConcentratorName.setText(cuid);
+
+
+
+        //////////////////
+
+        mContext = getApplicationContext();
+        dbhelper = new MyDBOpenHelper(mContext, "test.db", null, 1);
+        db = dbhelper.getWritableDatabase();
+        values1 = new ContentValues();
+
+        //pid = getIntent().getStringExtra("pid");
+        //cname = getIntent().getStringExtra("cname");
+        //cuid = getIntent().getStringExtra("cuid");
+        //textViewConcentratorName.setText(cname);
 
         //请求服务
 
@@ -143,11 +179,18 @@ public class Terminal extends AppCompatActivity {
             }
         });
 
-        btnStartScan.setOnClickListener(new View.OnClickListener() {
+        btnStartScanter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 startscan();
+            }
+        });
+        btnStartScancon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startscan_con();
             }
         });
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +208,13 @@ public class Terminal extends AppCompatActivity {
         //如果不关闭当前的会出现好多个页面
         Terminal.this.finish();
     }
+    public void startscan_con(){
+        Intent intent = new Intent();
+        intent.setClass(Terminal.this, scan_cuid.class);
+        startActivity(intent);
+        //如果不关闭当前的会出现好多个页面
+        Terminal.this.finish();
+    }
     private void handleLocationChange(Location location) {
         //btnGetLocation.setText("定位");
         double lat = location.getLatitude();
@@ -172,6 +222,16 @@ public class Terminal extends AppCompatActivity {
 
         inputLat.setText("" + lat);
         inputLong.setText("" + lon);
+        //接收终端luid
+        luid =getIntent().getStringExtra("luid");
+        //luid = bundle.getString("luid");
+        inputUID.setText(luid);
+
+        //接受集中器cuid
+        cuid =getIntent().getStringExtra("cuid");
+        //Bundle bundle1 = this.getIntent().getExtras();
+        //cuid = bundle1.getString("cuid");
+        textViewConcentratorName.setText(cuid);
     }
 
     public void onMapReady() {
@@ -203,6 +263,7 @@ public class Terminal extends AppCompatActivity {
                 // app-defined int constant. The callback method gets the
                 // result of the request.
             }
+
         }
 
         int permissionCheck = ContextCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -217,13 +278,47 @@ public class Terminal extends AppCompatActivity {
 
     }
 
+    private void checkNetwork() {
+        ConnectivityManager con=(ConnectivityManager)getSystemService(Activity.CONNECTIVITY_SERVICE);
+        boolean wifi=con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+        boolean internet=con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+        if(wifi|internet){
+            //执行相关操作
+            Toast.makeText(getApplicationContext(),"网络已连接", Toast.LENGTH_LONG).show();
+            isInternet = true;
+        }else{
+            Toast.makeText(getApplicationContext(),"网络未连接", Toast.LENGTH_LONG).show();
+            isInternet = false;
+        }
+    }
+
     public void push(){
         progressView.setVisibility(View.VISIBLE);
-        String name = inputName.getText().toString();
-        String luid = inputUID.getText().toString();
-        String cuid = textViewConcentratorName.getText().toString();
+        //String name = inputName.getText().toString();
+        //String luid = inputUID.getText().toString();
+        //String cuid = textViewConcentratorName.getText().toString();
+        String name = "aaaa";
+        String luid = "aaaa";
+        String cuid = "aaaa";
+        String pid = "aaaa";
+        double lat = 2.111;
+        double lon = 2.111;
+        if(!isInternet){
+            values1.put("pid",pid);
+            values1.put("cuid",cuid);
+            values1.put("name",name);
+            values1.put("luid",luid);
+            values1.put("lat",lat);
+            values1.put("lon",lon);
+            if(db.insert("task",null,values1)>0) {
+                Toast.makeText(mContext, "插入数据完毕", Toast.LENGTH_SHORT).show();
+            }
+            else
+                Toast.makeText(mContext,"插入失败啦",Toast.LENGTH_SHORT).show();
+        }
 
-        if (name.isEmpty() || cuid.isEmpty() || lat == 0 || lon == 0) {
+
+        if (name.isEmpty() || cuid.isEmpty() || lat == 0 || lon == 0||pid.isEmpty()||luid.isEmpty()) {
             progressView.setVisibility(View.GONE);
             ToastUtil.toast(Terminal.this, "表单信息不完整");
             ToastUtil.toast(Terminal.this, Double.toString(lat));
@@ -235,6 +330,7 @@ public class Terminal extends AppCompatActivity {
 
         apiService.addTerminal(pid, cuid, name, luid, lat, lon, new Callback<String>() {
             @Override
+
             public void onResponse(Call<String> call, Response<String> response) {
                 progressView.setVisibility(View.GONE);
                 String res = response.body();
